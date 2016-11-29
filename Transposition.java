@@ -35,7 +35,7 @@ public class Transposition {
 
     static void crear_plantilla(char[][] matriz, int residuo) {
         for (int j = matriz[0].length - residuo; j < matriz[0].length; j++) {
-            matriz[matriz.length - 1][j] = '\u0000';
+            matriz[matriz.length - 1][j] = '*';
         }
     }
 
@@ -44,12 +44,12 @@ public class Transposition {
         for (int i = 0; i < longitud1; i++) {
             for (int j = 0; j < longitud2; j++) {
                 if (b) {
-                    if (matriz[i][j] != '\u0000') {
+                    if (matriz[i][j] != '*') {
                         matriz[i][j] = s.charAt(cont);
                         cont++;
                     }
                 } else {
-                    if (matriz[j][i] != '\u0000') {
+                    if (matriz[j][i] != '*') {
                         matriz[j][i] = s.charAt(cont);
                         cont++;
                     }
@@ -63,11 +63,11 @@ public class Transposition {
         for (int i = 0; i < longitud1; i++) {
             for (int j = 0; j < longitud2; j++) {
                 if (b) {
-                    if (matriz[j][i] != '\u0000') {
+                    if (matriz[j][i] != '*') {
                         sb.append(matriz[j][i]);
                     }
                 } else {
-                    if (matriz[i][j] != '\u0000') {
+                    if (matriz[i][j] != '*') {
                         sb.append(matriz[i][j]);
                     }
                 }
