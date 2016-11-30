@@ -23,12 +23,15 @@ public class Transposition {
     }
 
     static String cypher(String s, String key) {
+        //Creamos una matriz donde guardamos la clave.
         char[] clave = key.toCharArray();
         //Creamos matriz bidimensional donde meteremos el mensaje. El número de columnas es la longitud de key, y el de filas será igual a (redondear hacia arriba(length del mensaje dividido entre length de key))
         char[][] matriz = new char[(int) Math.ceil(s.length() / (double) key.length())][key.length()];
+        //Enviamos a la función crear_plantilla el array matriz y el número de elementos que no utilizaremos para meter carácteres del mensaje (Ya que puede que el array tenga más elementos que carácteres el mensaje)
         crear_plantilla(matriz, (matriz.length * matriz[0].length) - s.length());
         //Introducimos los carácteres del mensaje dentro del array llamando a la función asignar_valores. (Además, le pasamos los valores true, número de filas y número de columnas porque queremos encriptar) (El orden de las filas y las columnas es importante)
         asignar_valores(s, matriz, true, matriz.length, matriz[0].length);
+        //En la función ordenar_clave ordenamos la clave. Según los cambios en las posiciones de la clave, cambiaremos de lugar las columnas de la matriz.
         ordenar_clave(clave, matriz);
         //Devolvemos el retorno de la función convertir_mensaje. Le pasamos matriz, true, el número de columnas y el número de filas porque queremos encriptar (El orden de las columnas y filas es importante)
         return convertir_mensaje(matriz, true, matriz[0].length, matriz.length);
