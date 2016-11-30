@@ -42,10 +42,10 @@ public class Vigenere {
                 //Con la variable b sabemos si debemos encriptar o desencriptar. Añadimos el retorno en resultado directamente.
                 if (b) {
                     //Enviamos a la función mini_caesar el carácter con el que estamos trabajando, delta true para que sepa que debe encriptar.
-                    resultado.append(mini_caesar(s.charAt(i), delta, true));
+                    resultado.append(mini_caesar(s.charAt(i), delta, b));
                 } else {
                     //Enviamos a la función mini_caesar el carácter con el que estamos trabajando, delta false para que sepa que debe desencriptar.
-                    resultado.append(mini_caesar(s.charAt(i), delta, false));
+                    resultado.append(mini_caesar(s.charAt(i), delta, b));
                 }
                 //Comprobamos que el valor del contador de password no supere el número de carácteres de passsword -1. De esta forma lo reiniciamos a cero cada vez.
                 if (cont_pass == (password.length() - 1)) {
