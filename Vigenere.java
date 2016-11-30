@@ -21,8 +21,8 @@ public class Vigenere {
         s = quitar_acentos(s);
         password = quitar_acentos(password);
 
-        //Creamos el contador que recorrerá los carácteres de password (-1 porque al inicio del bucle lo debemos incrementar)
-        int cont_pass = -1;
+        //Creamos el contador que recorrerá los carácteres de password.
+        int cont_pass = 0;
 
         //Creamos la variable delta, donde almacenaremos el decalaje que le pasaremos a mini_caesar.
         int delta;
@@ -34,8 +34,10 @@ public class Vigenere {
         for (int i = 0; i < s.length(); i++) {
             //Comprobamos que el carácter en cuestión sea una letra.
             if ((s.charAt(i) >= 'A') && (s.charAt(i) <= 'Z')) {
-                //Incrementamos el contador de password.
-                cont_pass++;
+                //Comprobamos que el valor del contador de password no sea igual al número de carácteres de passsword. De esta forma lo reiniciamos a cero cada vez.
+                if (cont_pass == password.length()) {
+                    cont_pass = 0;
+                }
                 //Calculamos el decalaje que le pasaremos a mini_aesar y lo metemos en delta.
                 delta = (int) (password.charAt(cont_pass) - 64);
 
@@ -47,10 +49,8 @@ public class Vigenere {
                     //Enviamos a la función mini_caesar el carácter con el que estamos trabajando, delta false para que sepa que debe desencriptar.
                     resultado.append(mini_caesar(s.charAt(i), delta, b));
                 }
-                //Comprobamos que el valor del contador de password no supere el número de carácteres de passsword -1. De esta forma lo reiniciamos a cero cada vez.
-                if (cont_pass == (password.length() - 1)) {
-                    cont_pass = -1;
-                }
+                //Incrementamos el contador de password.
+                cont_pass++;
                 continue;
             }
             //Si llegamos a este punto, el carácter no era una letra y la añadimos directamente a resultado.
