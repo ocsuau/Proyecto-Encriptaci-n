@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class Caesar {
     static String cypher(String s, int delta) {
@@ -65,8 +66,8 @@ public class Caesar {
     static String magic(String s) {
         s = s.toUpperCase();
         int num_provisional = encontrar_repetida(s);
-        return encontrar_mensaje(s, num_provisional);
-        //return encontrar_mensaje(s);
+        int delta = calcular_delta_magic(num_provisional);
+        return Caesar.decypher(s, delta);
     }
 
     //Función para recalcular delta.
@@ -78,69 +79,32 @@ public class Caesar {
         return delta;
     }
 
-//    static String encontrar_mensaje(String s) {
-//        StringBuilder retorno = new StringBuilder();
-//        for (int i = 0; i < 26; i++) {
-//            retorno.append(Caesar.decypher(s, i));
-//            if (comprobar_coincidencias(retorno.toString())) {
-//                return retorno.toString();
-//            }
-//            retorno.delete(0, retorno.length());
-//        }
-//        return null;
-//    }
-
     static int encontrar_repetida(String s) {
-        int num_veces_mayor = 0;
-        int num_veces_actual = 0;
-        char caracter = ' ';
-        char[] matriz = s.toCharArray();
-        for (int i = 0; i < matriz.length; i++) {
-            if (matriz[i] == caracter || matriz[i] == ' ') {
-                continue;
+        int[] abc = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) >= 'A' && s.charAt(i) <= 'Z') {
+                abc[s.charAt(i) - 65]++;
             }
-            for (int j = i + 1; j < matriz.length; j++) {
-                if (matriz[i] == matriz[j]) {
-                    num_veces_actual++;
-                    matriz[j] = ' ';
-                }
-            }
-            if (num_veces_actual > num_veces_mayor) {
-                num_veces_mayor = num_veces_actual;
-                caracter = matriz[i];
-            }
-            num_veces_actual = 0;
         }
-        return caracter;
+        return sacar_repetida(abc);
     }
 
-    static int calcular_delta_magic(int num_provisional, int letra_comun) {
-        if (num_provisional > letra_comun) {
-            return num_provisional - letra_comun;
+    static int calcular_delta_magic(int num_provisional) {
+        if (num_provisional > 'E') {
+            return num_provisional - 'E';
         }
-        return ('Z' - 64) - (letra_comun - num_provisional);
+        return ('Z' - 64) - ('E' - num_provisional);
     }
 
-    //PREGUNTAR SI DEBEMOS COMPROBAR SI HAY COINCIDENCIAS O BASTA CON TENER LA LETRA MÁS UTILIZADA.
-    //COMENTAR LAS DOS VERSIONES.
-    static String encontrar_mensaje(String s, int num_provisional) {
-        char[] letra_comun = {'E', 'I'};
-        StringBuilder retorno = new StringBuilder();
-        for (int i = 0; i < letra_comun.length; i++) {
-            retorno.append(Caesar.decypher(s, calcular_delta_magic(num_provisional, letra_comun[i])));
-            if (comprobar_coincidencias(retorno.toString())) {
-                return retorno.toString();
+    static int sacar_repetida(int[] abc) {
+        int valor = 0;
+        int valor_provisional = abc[0];
+        for (int i = 1; i < (abc.length - 1); i++) {
+            if (abc[i] > valor_provisional) {
+                valor = i + 65;
+                valor_provisional = abc[i];
             }
-            retorno.delete(0, retorno.length());
         }
-        return null;
-    }
-
-    static boolean comprobar_coincidencias(String mensaje) {
-        if (mensaje.contains(" DE LA ") || mensaje.contains(" DE ") || mensaje.contains(" LA ") || mensaje.contains(" ELS ")
-                || mensaje.contains(" LES ")) {
-            return true;
-        }
-        return false;
+        return valor;
     }
 }
