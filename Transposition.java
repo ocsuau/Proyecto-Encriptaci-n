@@ -1,7 +1,7 @@
 
 public class Transposition {
     static String cypher(String s, int dim) {
-        //Creamos matriz bidimensional donde meteremos el mensaje. El número de columnas nos lo dicen, y el de filas será igual a (redondear hacia arriba(carácteres del mensaje dividido entre número de columnas))
+        //Creamos matriz bidimensional donde meteremos el mensaje. El número de columnas nos lo dicen, y el de filas será igual a (redondear hacia arriba(length del mensaje dividido entre número de columnas))
         char[][] matriz = new char[(int) Math.ceil(s.length() / (double) dim)][dim];
         //Enviamos a la función crear_plantilla la matriz y el número de elementos de la misma que no serán rellenados por los carácteres del mensaje. (Ya que el mensaje puede que tenga menos carácteres que número de elementos el array)
         crear_plantilla(matriz, (matriz.length * matriz[0].length) - s.length());
@@ -12,7 +12,7 @@ public class Transposition {
     }
 
     static String decypher(String s, int dim) {
-        //Creamos matriz bidimensional donde meteremos el mensaje. El número de columnas nos lo dicen, y el de filas será igual a (redondear hacia arriba(carácteres del mensaje dividido entre número de columnas))
+        //Creamos matriz bidimensional donde meteremos el mensaje. El número de columnas nos lo dicen, y el de filas será igual a (redondear hacia arriba(length del mensaje dividido entre número de columnas))
         char[][] matriz = new char[(int) Math.ceil(s.length() / (double) dim)][dim];
         //Enviamos a la función crear_plantilla la matriz y el número de elementos de la misma que no serán rellenados por los carácteres del mensaje. (Ya que el mensaje puede que tenga menos carácteres que número de elementos el array)
         crear_plantilla(matriz, (matriz.length * matriz[0].length) - s.length());
@@ -24,10 +24,13 @@ public class Transposition {
 
     static String cypher(String s, String key) {
         char[] clave = key.toCharArray();
+        //Creamos matriz bidimensional donde meteremos el mensaje. El número de columnas es la longitud de key, y el de filas será igual a (redondear hacia arriba(length del mensaje dividido entre length de key))
         char[][] matriz = new char[(int) Math.ceil(s.length() / (double) key.length())][key.length()];
         crear_plantilla(matriz, (matriz.length * matriz[0].length) - s.length());
+        //Introducimos los carácteres del mensaje dentro del array llamando a la función asignar_valores. (Además, le pasamos los valores true, número de filas y número de columnas porque queremos encriptar) (El orden de las filas y las columnas es importante)
         asignar_valores(s, matriz, true, matriz.length, matriz[0].length);
         ordenar_clave(clave, matriz);
+        //Devolvemos el retorno de la función convertir_mensaje. Le pasamos matriz, true, el número de columnas y el número de filas porque queremos encriptar (El orden de las columnas y filas es importante)
         return convertir_mensaje(matriz, true, matriz[0].length, matriz.length);
     }
 
