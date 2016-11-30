@@ -1,16 +1,24 @@
 
 public class Transposition {
     static String cypher(String s, int dim) {
+        //Creamos matriz bidimensional donde meteremos el mensaje. El número de columnas nos lo dicen, y el de filas será igual a (redondear hacia arriba(carácteres del mensaje dividido entre número de columnas))
         char[][] matriz = new char[(int) Math.ceil(s.length() / (double) dim)][dim];
+        //Enviamos a la función crear_plantilla la matriz y el número de elementos de la misma que no serán rellenados por los carácteres del mensaje. (Ya que el mensaje puede que tenga menos carácteres que número de elementos el array)
         crear_plantilla(matriz, (matriz.length * matriz[0].length) - s.length());
+        //Introducimos los carácteres del mensaje dentro del array llamando a la función asignar_valores. (Además, le pasamos los valores true, número de filas y número de columnas porque queremos encriptar) (El orden de las filas y columnas es importante)
         asignar_valores(s, matriz, true, matriz.length, matriz[0].length);
+        //Devolvemos el retorno de la función convertir_mensaje. Le pasamos matriz, true, el número de columnas y el número de filas porque queremos encriptar (El orden de las columnas y filas es importante)
         return convertir_mensaje(matriz, true, matriz[0].length, matriz.length);
     }
 
     static String decypher(String s, int dim) {
+        //Creamos matriz bidimensional donde meteremos el mensaje. El número de columnas nos lo dicen, y el de filas será igual a (redondear hacia arriba(carácteres del mensaje dividido entre número de columnas))
         char[][] matriz = new char[(int) Math.ceil(s.length() / (double) dim)][dim];
+        //Enviamos a la función crear_plantilla la matriz y el número de elementos de la misma que no serán rellenados por los carácteres del mensaje. (Ya que el mensaje puede que tenga menos carácteres que número de elementos el array)
         crear_plantilla(matriz, (matriz.length * matriz[0].length) - s.length());
+        //Introducimos los carácteres del mensaje dentro del array llamando a la función asignar_valores. (Además, le pasamos los valores false, número de columnas y número de filas porque queremos desencriptar) (El orden de las columnas y las filas es importante)
         asignar_valores(s, matriz, false, matriz[0].length, matriz.length);
+        //Devolvemos el retorno de la función convertir_mensaje. Le pasamos matriz, false, el número de filas y el número de columnas porque queremos desencriptar (El orden de las filas y las columnas es importante)
         return convertir_mensaje(matriz, false, matriz.length, matriz[0].length);
     }
 
