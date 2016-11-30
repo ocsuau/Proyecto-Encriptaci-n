@@ -60,6 +60,7 @@ public class Vigenere {
         return resultado.toString();
     }
 
+    //PREGUNTAR SI MEJOR RECORRER EL STRING EN quitar_acentos O IR PASÁNDOLE EL CARÁCTER EN CUESTIÓN DESDE EL BUCLE PRINCIPAL.
     //En la función quitar_acentos recorremos el mensaje y si hay letras acentuadas, la sustituímos por la correspondiente sin acentuar.
     static String quitar_acentos(String s) {
         StringBuilder retorno = new StringBuilder();
