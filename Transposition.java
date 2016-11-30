@@ -48,13 +48,16 @@ public class Transposition {
     }
 
     static void crear_plantilla(char[][] matriz, int residuo) {
+        //En está función ponemos en los últimos residuo elementos de la última fila de la matriz el carácter comodín '*', donde nos ayudará a la hora de desencriptar para no introducir los datos erróneamente
         for (int j = matriz[0].length - residuo; j < matriz[0].length; j++) {
             matriz[matriz.length - 1][j] = '*';
         }
     }
 
     static void asignar_valores(String s, char[][] matriz, boolean b, int longitud1, int longitud2) {
+        //En esta función asignamos los valores a la matriz. Dependiendo de si queremos encriptar o desencriptar, recorreremos la matriz por filas o por columnas. (Por eso los input longitud1 y longitud2)
         int cont = 0;
+        //Asignaremos los valores de la forma correcta según el valor de b (Según de si queremos desencriptar o encriptar). En los elementos donde no encuentre el carácter '*'(comodín que hemos asignado en la función crear_plantilla para su correcta desencriptación) meterá un carácter del mensaje.
         for (int i = 0; i < longitud1; i++) {
             for (int j = 0; j < longitud2; j++) {
                 if (b) {
@@ -73,6 +76,7 @@ public class Transposition {
     }
 
     static String convertir_mensaje(char[][] matriz, boolean b, int longitud1, int longitud2) {
+        //En esta función recorremos la matriz (según el valor de b, por filas o por columnas) y, siempre que el valor del elemento sea distinto a '*', meterá el valor del elemento en sb.
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < longitud1; i++) {
             for (int j = 0; j < longitud2; j++) {
@@ -91,7 +95,9 @@ public class Transposition {
     }
 
     static void mover_valores_mensaje(char[][] matriz, int i, int j) {
+        //En esta función ordenamos sustituimos los valores de una columna a otra según los parámetros que nos pasan. (para su desencriptación o encriptación)
         int valor;
+        //En el bucle sólo recorremos las filas, sustituyendo las posiciones de las columnas según los parámetros de entrada.
         for (int k = 0; k < matriz.length; k++) {
             valor = matriz[k][i];
             matriz[k][i] = matriz[k][j];
@@ -100,6 +106,8 @@ public class Transposition {
     }
 
     static char[] ordenar_clave(char[] clave, char[][] matriz) {
+        //En está función ordenamos la clave con el método bubble sort de una pasada.
+        //Creamos una matriz nueva, que será igual a la clave desordenada. (no quiero trabajar sobre la matriz original porque más adelante nos hará falta)
         char[] retorno = new char[clave.length];
         for (int k = 0; k < retorno.length; k++) {
             retorno[k] = clave[k];
@@ -111,6 +119,7 @@ public class Transposition {
                     valor = (int) retorno[i];
                     retorno[i] = retorno[j];
                     retorno[j] = (char) valor;
+                    //En el momento que ordenamos un valor de la palabra clave en su posición correspondiente, vamos a mover_valores_mensaje para cambiar los valores de las posiciones correspondientes de la clave afectada a la matriz del mensaje.
                     mover_valores_mensaje(matriz, i, j);
                 }
             }
@@ -119,6 +128,7 @@ public class Transposition {
     }
 
     static void recuperar_clave(char[][] resultado, char[] clave, char[] clave_ordenada) {
+        //En está función desordenamos de nuevo la clave (recuperamos) para que coincida con la clave original y porder hacer los cambios respectivos a la matriz del mensaje para su posterior desencriptación.
         int valor;
         for (int i = 0; i < clave.length; i++) {
             for (int j = i + 1; j < clave.length; j++) {
@@ -126,6 +136,7 @@ public class Transposition {
                     valor = clave_ordenada[i];
                     clave_ordenada[i] = clave_ordenada[j];
                     clave_ordenada[j] = (char) valor;
+                    //En esté punto es donde pasamos a la función mover_valores_mensaje los valores de las posiciones nuevas para las columnas afectadas de la matriz del mensaje.
                     mover_valores_mensaje(resultado, i, j);
                 }
             }
