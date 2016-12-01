@@ -109,9 +109,7 @@ public class Transposition {
         //En está función ordenamos la clave con el método bubble sort de una pasada.
         //Creamos una matriz nueva, que será igual a la clave desordenada. (no quiero trabajar sobre la matriz original porque más adelante nos hará falta)
         char[] retorno = new char[clave.length];
-        for (int k = 0; k < retorno.length; k++) {
-            retorno[k] = clave[k];
-        }
+        System.arraycopy(clave, 0, retorno, 0, clave.length);
         int valor;
         for (int i = 0; i < retorno.length; i++) {
             for (int j = i + 1; j < retorno.length; j++) {
