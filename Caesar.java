@@ -12,9 +12,10 @@ public class Caesar {
     }
 
     static String convertir_mensaje(String s, int delta, boolean b) {
-        //Enviamos delta a recalcular_delta para obtener el nuevo valor equivalente al que nos han dado.
-        delta = recalcular_delta(delta);
-
+        //Si delta es mayor que el número de letras del abecedario, calculamos su residuo para obtener el delta correcto.
+        if (delta > 26) {
+            delta = delta % 26;
+        }
         //Convertimos letras en mayúsculas.
         s = s.toUpperCase();
 
@@ -72,15 +73,6 @@ public class Caesar {
         int delta = calcular_delta_magic(num_provisional);
         //Retornamos el mensaje desencriptado llamando a Caesar.decypher.
         return Caesar.decypher(s, delta);
-    }
-
-    //Función para recalcular delta.
-    static int recalcular_delta(int delta) {
-        //Recalculamos delta para obtener un número inferior o igual a 26.
-        while (delta > 26) {
-            delta -= 26;
-        }
-        return delta;
     }
 
     static int encontrar_repetida(String s) {
