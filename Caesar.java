@@ -90,12 +90,13 @@ public class Caesar {
     }
 
     static int calcular_delta_magic(int num_provisional) {
-        //Si num_provisional (posición de la letra con mayor frecuencia en el string) es mayor que 'E', devolvemos el resultado de num_provisional - la posición en la tabla ASCII de 'E'
-        if (num_provisional > 'E') {
-            return num_provisional - 'E';
+        //Guardamos delta valor la resta de la posición de la letra del mensaje con mayor frecuencia menos la posición de la letra 'E' en la tabla ASCII
+        int delta = num_provisional - 'E';
+        //Si el valor de delta es negativo, le sumamos el número de letras del abecedario.
+        if (delta < 0) {
+            delta += 26;
         }
-        //Si no se cumple el anterior if, es porque num_provisional es menor que 'E'. Al resultado de la resta 'E'-num_provisional le debemos restar 26, para que devuelva el valor correspondiente entendible para Caesar.decypher.
-        return 26 - ('E' - num_provisional);
+        return delta;
     }
 
     static int sacar_repetida(int[] abc) {
