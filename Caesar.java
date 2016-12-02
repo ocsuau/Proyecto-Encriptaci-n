@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class Caesar {
     static String cypher(String s, int delta) {
         //Llamo a la función convertir_mensaje y le enviamos el valor true para que sepa que debe realizar la codificación
@@ -103,8 +101,7 @@ public class Caesar {
         //Calcularemos cuál es la letra más frecuente en el string a partir del array abc. (Donde tenemos almacenados la frecuencia de cada letra)
 
         //Guardamos en valor la posición del primer elemento del array y en valor_provisional el valor del primer elemento del array.
-        int valor = 0;
-        int valor_provisional = abc[0];
+        int valor = 0, valor_provisional = abc[0];
 
         //Recorremos el array empezando por la segunda posición (Empezamos comparándola con la primera).
         for (int i = 1; i < (abc.length - 1); i++) {
