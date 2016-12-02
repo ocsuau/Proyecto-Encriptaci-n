@@ -112,14 +112,14 @@ public class Transposition {
         //Ordenamos clave_ordenada.
         Arrays.sort(clave_ordenada);
 
-        for (int i = 0, valor; i < key.length(); i++) {
+        for (int i = 0, contenedor_provisional; i < key.length(); i++) {
             for (int j = i + 1; j < key.length(); j++) {
                 //Si b es true, ordenamos la clave desordenada y hacemos los cambios respectivos a la matriz.
                 if (b) {
                     if (clave_ordenada[i] == clave_desordenada[j]) {
-                        valor = clave_desordenada[i];
+                        contenedor_provisional = clave_desordenada[i];
                         clave_desordenada[i] = clave_desordenada[j];
-                        clave_desordenada[j] = (char) valor;
+                        clave_desordenada[j] = (char) contenedor_provisional;
                         mover_valores_mensaje(resultado, i, j);
                         //Realizamos break porque sabemos que al encontrar una letra, no la volveremos a encontrar ya que las palabras clave que nos dan no tienen letras repetidas.
                         break;
@@ -127,15 +127,16 @@ public class Transposition {
                     //Si b no es true, desordenamos la clave ordenada y hacemos los cambios respectivos a la matriz.
                 } else {
                     if (clave_desordenada[i] == clave_ordenada[j]) {
-                        valor = clave_ordenada[i];
+                        contenedor_provisional = clave_ordenada[i];
                         clave_ordenada[i] = clave_ordenada[j];
-                        clave_ordenada[j] = (char) valor;
+                        clave_ordenada[j] = (char) contenedor_provisional;
                         mover_valores_mensaje(resultado, i, j);
                         //Realizamos break porque sabemos que al encontrar una letra, no la volveremos a encontrar ya que las palabras clave que nos dan no tienen letras repetidas.
                         break;
                     }
                 }
             }
+
         }
     }
 }
