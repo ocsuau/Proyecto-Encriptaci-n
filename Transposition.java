@@ -118,6 +118,7 @@ public class Transposition {
         //Ordenamos clave_ordenada.
         Arrays.sort(clave_ordenada);
 
+        //j es igual a i + 1 porque empezamos a comparar a partir del segundo elemento (si coincide con el primero, igualmente no realizaremos ningún cambio.
         for (int i = 0, contenedor_provisional; i < key.length(); i++) {
             for (int j = i + 1; j < key.length(); j++) {
                 //Si b es true, ordenamos la clave desordenada y hacemos los cambios respectivos a la matriz.
