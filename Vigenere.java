@@ -39,14 +39,9 @@ public class Vigenere {
                 //Calculamos el decalaje que le pasaremos a mini_aesar y lo metemos en delta.
                 delta = (int) (password.charAt(cont_pass) - 64);
 
-                //Con la variable b sabemos si debemos encriptar o desencriptar. Añadimos el retorno en resultado directamente.
-                if (b) {
-                    //Enviamos a la función mini_caesar el carácter con el que estamos trabajando, delta true para que sepa que debe encriptar.
-                    resultado.append(mini_caesar(s.charAt(i), delta, b));
-                } else {
-                    //Enviamos a la función mini_caesar el carácter con el que estamos trabajando, delta false para que sepa que debe desencriptar.
-                    resultado.append(mini_caesar(s.charAt(i), delta, b));
-                }
+                //Enviamos a la función mini_caesar el carácter con el que estamos trabajando, delta y el valor de b, para que sepa si debe encriptar o desencriptar.
+                resultado.append(mini_caesar(s.charAt(i), delta, b));
+
                 //Incrementamos el contador de password.
                 cont_pass++;
                 continue;

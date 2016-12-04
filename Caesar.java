@@ -104,7 +104,7 @@ public class Caesar {
         int posicion_matriz = 0, valor_provisional = abc[0];
 
         //Recorremos el array empezando por la segunda posición (Empezamos comparándola con la primera).
-        for (int i = 1; i < (abc.length - 1); i++) {
+        for (int i = 1; i < abc.length; i++) {
             //Si el valor del elemento es mayor del que ya hemos almacenado, actualizaremos valor_provisional y la posición del elemento en cuestión.
             if (abc[i] > valor_provisional) {
                 posicion_matriz = i;
