@@ -100,18 +100,18 @@ public class Caesar {
     static int sacar_repetida(int[] abc) {
         //Calcularemos cuál es la letra más frecuente en el string a partir del array abc. (Donde tenemos almacenados la frecuencia de cada letra)
 
-        //Guardamos en valor la posición del primer elemento del array y en valor_provisional el valor del primer elemento del array.
-        int valor = 0, valor_provisional = abc[0];
+        //Guardamos en posicion_matriz la posición del primer elemento del array y en valor_provisional el valor del primer elemento del array.
+        int posicion_matriz = 0, valor_provisional = abc[0];
 
         //Recorremos el array empezando por la segunda posición (Empezamos comparándola con la primera).
         for (int i = 1; i < (abc.length - 1); i++) {
-            //Si el valor del elemento es mayor del que ya hemos almacenado, actualizaremos valor provisional y la posición del elemento en cuestión.
+            //Si el valor del elemento es mayor del que ya hemos almacenado, actualizaremos valor_provisional y la posición del elemento en cuestión.
             if (abc[i] > valor_provisional) {
-                valor = i + 65;
+                posicion_matriz = i;
                 valor_provisional = abc[i];
             }
         }
         //Devolvemos la posición más 65 (Para devolverle la posición del carácter en la tabla ASCII.
-        return valor;
+        return posicion_matriz + 65;
     }
 }
