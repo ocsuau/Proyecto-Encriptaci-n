@@ -101,10 +101,10 @@ public class Transposition {
         //En esta función ordenamos sustituimos los valores de una columna a otra según los parámetros que nos pasan. (para su desencriptación o encriptación)
 
         //En el bucle sólo recorremos las filas, sustituyendo las posiciones de las columnas según los parámetros de entrada.
-        for (int k = 0, valor; k < matriz.length; k++) {
-            valor = matriz[k][i];
+        for (int k = 0, contenedor_provisional; k < matriz.length; k++) {
+            contenedor_provisional = matriz[k][i];
             matriz[k][i] = matriz[k][j];
-            matriz[k][j] = (char) valor;
+            matriz[k][j] = (char) contenedor_provisional;
         }
     }
 
