@@ -33,14 +33,16 @@ public class Transposition {
         //Creamos matriz bidimensional donde meteremos el mensaje. El número de columnas es la longitud de key, y el de filas será igual a (redondear hacia arriba(length del mensaje dividido entre length de key))
         char[][] matriz = new char[(int) Math.ceil(s.length() / (double) key.length())][key.length()];
 
+        //Creamos el array clave, donde metemos la key para poder trabajar con élla más adelante.
         char[] clave = key.toCharArray();
+
         //Enviamos a la función crear_plantilla el array matriz y el número de elementos que no utilizaremos para meter carácteres del mensaje (Ya que puede que el array tenga más elementos que carácteres el mensaje)
         crear_plantilla(matriz, (matriz.length * matriz[0].length) - s.length());
 
         //Introducimos los carácteres del mensaje dentro del array llamando a la función asignar_valores. (Además, le pasamos los valores true, número de filas y número de columnas porque queremos encriptar) (El orden de las filas y las columnas es importante)
         asignar_valores(s, matriz, true, matriz.length, matriz[0].length);
 
-        //Al pasarle el valor true a recuperar_clave, nos realizará los cambios de posición correspondientes para ordenar la clave alfabéticamente. Estos cambios los aplicaremos a las columnas de matriz.
+        //Llamamos a ordenar_clave para para que, al ordenar la clave, se apliquen los mismos cambios de posición de columnas en la matriz donde tenemos el mensaje para su posterior encriptación.
         ordenar_clave(matriz, clave);
 
         //Devolvemos el retorno de la función convertir_mensaje. Le pasamos matriz, true, el número de columnas y el número de filas porque queremos encriptar (El orden de las columnas y filas es importante)
@@ -51,18 +53,19 @@ public class Transposition {
         //Creamos matriz bidimensional donde meteremos el mensaje. El número de columnas es la longitud de key, y el de filas será igual a (redondear hacia arriba(length del mensaje dividido entre length de key))
         char[][] matriz = new char[(int) Math.ceil(s.length() / (double) key.length())][key.length()];
 
+        //Creamos el array clave, donde metemos la key para poder trabajar con élla más adelante.
         char[] clave = key.toCharArray();
 
         //Enviamos a la función crear_plantilla el array matriz y el número de elementos que no utilizaremos para meter carácteres del mensaje (Ya que puede que el array tenga más elementos que carácteres el mensaje)
         crear_plantilla(matriz, (matriz.length * matriz[0].length) - s.length());
 
-        //Al pasarle el valor true a recuperar_clave, nos realizará los cambios de posición correspondientes para ordenar la clave alfabéticamente. Estos cambios los aplicaremos a las columnas de matriz.
+        //Llamamos a ordenar_clave para para que, al ordenar la clave, se apliquen los mismos cambios de posición de columnas en la matriz (para dejarla de la forma adecuada para introducir el mensaje para su posterior desencriptación.
         ordenar_clave(matriz, clave);
 
         //Introducimos los carácteres del mensaje dentro del array llamando a la función asignar_valores. (Además, le pasamos los valores true, número de filas y número de columnas porque queremos encriptar) (El orden de las filas y las columnas es importante)
         asignar_valores(s, matriz, false, matriz[0].length, matriz.length);
 
-        //Al pasarle el valor false a recuperar_clave, nos realizará los cambios de posición correspondientes para recuperar, a partir de la clave ordenada, la clave original. Estos cambios los aplicaremos a las columnas de matriz.
+        //Llamamos a recuperar clave para que, al reordenar la clave para que coincida con la clave original, se apliquen los mismos cambios de posición de columnas en la matriz donde tenemos el mensaje para su posterior desencriptación.
         recuperar_clave(matriz, key, clave);
 
         //Devolvemos el retorno de la función convertir_mensaje. Le pasamos matriz, true, el número de columnas y el número de filas porque queremos encriptar (El orden de las columnas y filas es importante)
@@ -123,13 +126,18 @@ public class Transposition {
     }
 
     static void ordenar_clave(char[][] matriz, char[] clave) {
-        int valor;
-        for (int i = 0; i < clave.length; i++) {
+        //En esta función ordenamos la clave que nos han dado para realizar los mismos cambios de posición de columnas a la matriz.
+
+        //Realizamos un bubble sort de una pasada para ordenar la clave.
+        for (int i = 0, valor; i < clave.length; i++) {
             for (int j = i + 1; j < clave.length; j++) {
                 if (clave[j] < clave[i]) {
                     valor = clave[i];
                     clave[i] = clave[j];
                     clave[j] = (char) valor;
+
+                    //Llamamos a la función mover_valores_mensaje para realizar los mismos cambios de posición de las columnas que hemos hecho con la matriz clave.
+                    //Le pasamos las variables que contienen las columnas que debe intercambiar.
                     mover_valores_mensaje(matriz, i, j);
                 }
             }
@@ -137,13 +145,18 @@ public class Transposition {
     }
 
     static void recuperar_clave(char[][] resultado, String key, char[] clave) {
+        //En esta función recuperamos la clave a partir de la clave original que nos han dado para realizar los mismos cambios de posición de columnas a la matriz.
 
+        //Ordenamos la clave realizando un bubble sort de una pasada, comparando la equivalencia de los carácteres.
         for (int i = 0, contenedor_provisional; i < key.length(); i++) {
             for (int j = i + 1; j < key.length(); j++) {
                 if (clave[j] == key.charAt(i)) {
                     contenedor_provisional = clave[i];
                     clave[i] = clave[j];
                     clave[j] = (char) contenedor_provisional;
+
+                    //Llamamos a la función mover_valores_mensaje para realizar los mismos cambios de posición de las columnas que hemos hecho con la matriz clave.
+                    //Le pasamos las variables que contienen las columnas que debe intercambiar.
                     mover_valores_mensaje(resultado, i, j);
                     break;
                 }
