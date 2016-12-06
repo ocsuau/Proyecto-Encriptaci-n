@@ -65,19 +65,26 @@ public class Caesar {
     static String magic(String s) {
         //Pasamos las letras a mayúsculas.
         s = s.toUpperCase();
+
         //Vamos a la función encontrar_repetida (nos devolverá la posición de la letra más frecuente en el string), y meteremos el retorno en num_provisional.
         int num_provisional = encontrar_repetida(s);
+
         //Metemos en delta el retorno de calcular_delta_magic, que será el delta correspondiente de la comparación de la letra 'E' con num_provisional.
         int delta = calcular_delta_magic(num_provisional);
+
         //Retornamos el mensaje desencriptado llamando a Caesar.decypher.
         return Caesar.decypher(s, delta);
     }
 
     static int encontrar_repetida(String s) {
+        //En esta función buscamos cuál es el carácter con mayor frecuencia en el mensaje que nos han pasado.
+
         //Creamos un array, donde cada elemento representa una letra del abecedario (de manera ordenada).
         int[] abc = new int[26];
+
         //Recorremos el string
         for (int i = 0; i < s.length(); i++) {
+
             //Si el carácter en cuestión es una letra entre la 'A' y la 'Z', incrementa el elemento correspondiente del array a esa letra.
             if (s.charAt(i) >= 'A' && s.charAt(i) <= 'Z') {
                 abc[s.charAt(i) - 65]++;
@@ -90,6 +97,7 @@ public class Caesar {
     static int calcular_delta_magic(int num_provisional) {
         //Guardamos delta valor la resta de la posición de la letra del mensaje con mayor frecuencia menos la posición de la letra 'E' en la tabla ASCII
         int delta = num_provisional - 'E';
+
         //Si el valor de delta es negativo, le sumamos el número de letras del abecedario.
         if (delta < 0) {
             delta += 26;
@@ -105,6 +113,7 @@ public class Caesar {
 
         //Recorremos el array empezando por la segunda posición (Empezamos comparándola con la primera).
         for (int i = 1; i < abc.length; i++) {
+
             //Si el valor del elemento es mayor del que ya hemos almacenado, actualizaremos valor_provisional y la posición del elemento en cuestión.
             if (abc[i] > valor_provisional) {
                 posicion_matriz = i;

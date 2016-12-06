@@ -53,10 +53,12 @@ public class Vigenere {
         return resultado.toString();
     }
 
-    //PREGUNTAR SI MEJOR RECORRER EL STRING EN quitar_acentos O IR PASÁNDOLE EL CARÁCTER EN CUESTIÓN DESDE EL BUCLE PRINCIPAL.
     //En la función quitar_acentos recorremos el mensaje y si hay letras acentuadas, la sustituímos por la correspondiente sin acentuar.
     static String quitar_acentos(String s) {
+
+        //Creamos el StringBuilder retorno donde almacenaremos el mensaje sin acentos
         StringBuilder retorno = new StringBuilder();
+
         for (int i = 0; i < s.length(); i++) {
             switch (s.charAt(i)) {
                 case 'À':
@@ -85,9 +87,11 @@ public class Vigenere {
 
     //En la función mini_caesar convertiremos el carácter que nos pasan en otro carácter dependiendo del valor de delta y de b.
     static char mini_caesar(char c, int delta, boolean b) {
+
         //Si b es true, debemos encriptar, así que sumaremos delta a la posición del carácter en la tabla ASCII.
         if (b) {
             delta += (int) c;
+
             //Si delta es mayor que la posición de 'Z' en la tabla ASCII, le restamos 26 para que devuelva el carácter correcto.
             if (delta > 'Z') {
                 delta -= 26;
@@ -96,6 +100,7 @@ public class Vigenere {
         //Si b no es true, debemos desencriptar, así que restaremos delta a la posición del carácter en la tabla ASCII.
         else {
             delta = (int) c - delta;
+
             //Si delta es menor que la posición de 'A' en la tabla ASCII, le sumamos 26 para que devuelva el carácter correcto.
             if (delta < 'A') {
                 delta += 26;
