@@ -33,6 +33,7 @@ public class Transposition {
         //Creamos matriz bidimensional donde meteremos el mensaje. El número de columnas es la longitud de key, y el de filas será igual a (redondear hacia arriba(length del mensaje dividido entre length de key))
         char[][] matriz = new char[(int) Math.ceil(s.length() / (double) key.length())][key.length()];
 
+        char[] clave = key.toCharArray();
         //Enviamos a la función crear_plantilla el array matriz y el número de elementos que no utilizaremos para meter carácteres del mensaje (Ya que puede que el array tenga más elementos que carácteres el mensaje)
         crear_plantilla(matriz, (matriz.length * matriz[0].length) - s.length());
 
@@ -40,7 +41,7 @@ public class Transposition {
         asignar_valores(s, matriz, true, matriz.length, matriz[0].length);
 
         //Al pasarle el valor true a recuperar_clave, nos realizará los cambios de posición correspondientes para ordenar la clave alfabéticamente. Estos cambios los aplicaremos a las columnas de matriz.
-        recuperar_clave(matriz, key, true);
+        ordenar_clave(matriz, clave);
 
         //Devolvemos el retorno de la función convertir_mensaje. Le pasamos matriz, true, el número de columnas y el número de filas porque queremos encriptar (El orden de las columnas y filas es importante)
         return convertir_mensaje(matriz, true, matriz[0].length, matriz.length);
@@ -50,17 +51,19 @@ public class Transposition {
         //Creamos matriz bidimensional donde meteremos el mensaje. El número de columnas es la longitud de key, y el de filas será igual a (redondear hacia arriba(length del mensaje dividido entre length de key))
         char[][] matriz = new char[(int) Math.ceil(s.length() / (double) key.length())][key.length()];
 
+        char[] clave = key.toCharArray();
+
         //Enviamos a la función crear_plantilla el array matriz y el número de elementos que no utilizaremos para meter carácteres del mensaje (Ya que puede que el array tenga más elementos que carácteres el mensaje)
         crear_plantilla(matriz, (matriz.length * matriz[0].length) - s.length());
 
         //Al pasarle el valor true a recuperar_clave, nos realizará los cambios de posición correspondientes para ordenar la clave alfabéticamente. Estos cambios los aplicaremos a las columnas de matriz.
-        recuperar_clave(matriz, key, true);
+        ordenar_clave(matriz, clave);
 
         //Introducimos los carácteres del mensaje dentro del array llamando a la función asignar_valores. (Además, le pasamos los valores true, número de filas y número de columnas porque queremos encriptar) (El orden de las filas y las columnas es importante)
         asignar_valores(s, matriz, false, matriz[0].length, matriz.length);
 
         //Al pasarle el valor false a recuperar_clave, nos realizará los cambios de posición correspondientes para recuperar, a partir de la clave ordenada, la clave original. Estos cambios los aplicaremos a las columnas de matriz.
-        recuperar_clave(matriz, key, false);
+        recuperar_clave(matriz, key, clave);
 
         //Devolvemos el retorno de la función convertir_mensaje. Le pasamos matriz, true, el número de columnas y el número de filas porque queremos encriptar (El orden de las columnas y filas es importante)
         return convertir_mensaje(matriz, false, matriz.length, matriz[0].length);
@@ -119,39 +122,30 @@ public class Transposition {
         }
     }
 
-    static void recuperar_clave(char[][] resultado, String key, boolean b) {
-        //En está función, dependiendo del valor de b, desordenamos la clave (recuperamos) o la ordenamos para porder hacer los cambios respectivos a la matriz del mensaje para su posterior desencriptación o encriptación.
+    static void ordenar_clave(char[][] matriz, char[] clave) {
+        int valor;
+        for (int i = 0; i < clave.length; i++) {
+            for (int j = i + 1; j < clave.length; j++) {
+                if (clave[j] < clave[i]) {
+                    valor = clave[i];
+                    clave[i] = clave[j];
+                    clave[j] = (char) valor;
+                    mover_valores_mensaje(matriz, i, j);
+                }
+            }
+        }
+    }
 
-        //Creamos dos arrays que representan la clave original y la ordenada.
-        char[] clave_ordenada = key.toCharArray();
-        char[] clave_desordenada = key.toCharArray();
+    static void recuperar_clave(char[][] resultado, String key, char[] clave) {
 
-        //Ordenamos clave_ordenada.
-        Arrays.sort(clave_ordenada);
-
-        //j es igual a i + 1 porque empezamos a comparar a partir del segundo elemento (si coincide con el primero, igualmente no realizaremos ningún cambio.
         for (int i = 0, contenedor_provisional; i < key.length(); i++) {
             for (int j = i + 1; j < key.length(); j++) {
-                //Si b es true, ordenamos la clave desordenada y hacemos los cambios respectivos a la matriz.
-                if (b) {
-                    if (clave_ordenada[i] == clave_desordenada[j]) {
-                        contenedor_provisional = clave_desordenada[i];
-                        clave_desordenada[i] = clave_desordenada[j];
-                        clave_desordenada[j] = (char) contenedor_provisional;
-                        mover_valores_mensaje(resultado, i, j);
-                        //Realizamos break porque sabemos que al encontrar una letra, no la volveremos a encontrar ya que las palabras clave que nos dan no tienen letras repetidas.
-                        break;
-                    }
-                    //Si b no es true, desordenamos la clave ordenada y hacemos los cambios respectivos a la matriz.
-                } else {
-                    if (clave_desordenada[i] == clave_ordenada[j]) {
-                        contenedor_provisional = clave_ordenada[i];
-                        clave_ordenada[i] = clave_ordenada[j];
-                        clave_ordenada[j] = (char) contenedor_provisional;
-                        mover_valores_mensaje(resultado, i, j);
-                        //Realizamos break porque sabemos que al encontrar una letra, no la volveremos a encontrar ya que las palabras clave que nos dan no tienen letras repetidas.
-                        break;
-                    }
+                if (clave[j] == key.charAt(i)) {
+                    contenedor_provisional = clave[i];
+                    clave[i] = clave[j];
+                    clave[j] = (char) contenedor_provisional;
+                    mover_valores_mensaje(resultado, i, j);
+                    break;
                 }
             }
         }
