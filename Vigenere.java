@@ -11,6 +11,11 @@ public class Vigenere {
     }
 
     static String convertir_mensaje(String s, String password, boolean b) {
+
+        //Comprobamos que el mensaje que nos han pasado o la password existen. Si no, retornamos directamente el mensaje.
+        if (s.length() == 0 || password.length() == 0) {
+            return s;
+        }
         //Ponemos el mensaje y la password en mayúsculas.
         s = s.toUpperCase();
         password = password.toUpperCase();

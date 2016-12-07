@@ -15,6 +15,11 @@ public class TranspositionTest {
         assertEquals("Leods só  rqr'lseelt ofeuiests aaa esaxn rgs nldr,nevharest e  tneò ane qiem .jmqctuauxlosaeuieateess' naan e n taesnt,cnf arvn ts ocadlao m  ininet r",
                 Transposition.cypher("L'enveja en els hòmens mostra quant desgraciats se senten, i la seua constant atenció al que fan o deixen de fer els altres, mostra quant s'avorrixen.", 12));
 
+        //tests propios
+        assertEquals("Hola, cómo va?", Transposition.cypher("Hola, cómo va?", 0));
+        assertEquals("Hola, cómo va?", Transposition.cypher("Hola, cómo va?", -5));
+        assertEquals("", Transposition.cypher("", 4));
+        assertEquals("hola", Transposition.cypher("hola", 6));
     }
 
     @Test
@@ -31,6 +36,11 @@ public class TranspositionTest {
         assertEquals("L'èxit polític és per aquells que perceben les necessitats públiques i saben satisfer-les.",
                 Transposition.decypher("Llplrstias'íesc aqbfètr entueexi qbesenricauec s -t qenep sl éu  súiaepseplsb tso leeilsi.", 9));
 
+        //tests propios
+        assertEquals("Hola, cómo va?", Transposition.decypher("Hola, cómo va?", 0));
+        assertEquals("Hola, cómo va?", Transposition.decypher("Hola, cómo va?", -5));
+        assertEquals("", Transposition.cypher("", 4));
+        assertEquals("hola", Transposition.cypher("hola", 6));
     }
 
     @Test
@@ -40,6 +50,10 @@ public class TranspositionTest {
         assertEquals("RCDEN IRL EDEFTASEEOEO. CW V AE", Transposition.cypher("WE ARE DISCOVERED. FLEE AT ONCE", "ZEBRAS"));
         assertEquals("Lnu    mçisreadsoa rrròi è el,e l i 'merlsacndapfoocébrg tdpaaaarut.", Transposition.cypher("La paciència és un arbre d'arrel amarga, però de fruits molt dolços.", "Proverbi"));
 
+        //tests propios
+        assertEquals("Hola, cómo va?", Transposition.cypher("Hola, cómo va?", ""));
+        assertEquals("", Transposition.cypher("", "prueba"));
+        assertEquals("hola", Transposition.cypher("hola", "prueba"));
     }
 
     @Test
@@ -50,6 +64,10 @@ public class TranspositionTest {
                 Transposition.decypher("RCDEN IRL EDEFTASEEOEO. CW V AE", "ZEBRAS"));
         assertEquals("Espaiet i bona lletra, que el fer les coses bé, importa més que el fer-les.",
                 Transposition.decypher("sil  s péeliotero,tqf.p lqf bosleenr  s aueabeuecér  sE  ,lesmm -taaelei er", "machado"));
-    }
 
+        //tests propios
+        assertEquals("Hola, cómo va?", Transposition.decypher("Hola, cómo va?", ""));
+        assertEquals("", Transposition.cypher("", "prueba"));
+        assertEquals("hola", Transposition.cypher("hola", "prueba"));
+    }
 }

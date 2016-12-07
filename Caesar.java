@@ -10,8 +10,13 @@ public class Caesar {
     }
 
     static String convertir_mensaje(String s, int delta, boolean b) {
+
+        if (comprobar_existencia_mensaje(s) || delta == 0) {
+            //Si delta es igual a 0 o el mensaje que nos pasan no tiene ningun carácter, directamente retornamos el mismo mensaje, ya que no se vería afectado realizando el código.
+            return s;
+        }
         //Si delta es mayor que el número de letras del abecedario, calculamos su residuo para obtener el delta correcto.
-        if (delta > 26 || delta < -26) {
+        else if (delta > 26 || delta < -26) {
             delta = delta % 26;
         }
 
@@ -74,6 +79,11 @@ public class Caesar {
     }
 
     static String magic(String s) {
+
+        //Si el mensaje que nos pasan no contiene ningún carácter, devolvemos el mismo mensaje ya que no se vería afectado con el resto del algoritmo.
+        if (comprobar_existencia_mensaje(s)) {
+            return s;
+        }
         //Pasamos las letras a mayúsculas.
         s = s.toUpperCase();
 
@@ -87,8 +97,17 @@ public class Caesar {
         return Caesar.decypher(s, delta);
     }
 
+    //En esta función comprobamos que el mensaje contenga algún carácter.
+    static boolean comprobar_existencia_mensaje(String s) {
+        boolean retorno = false;
+        if (s.length() == 0) {
+            retorno = true;
+        }
+        return retorno;
+    }
+
+    //En esta función buscamos cuál es el carácter con mayor frecuencia en el mensaje que nos han pasado.
     static int encontrar_repetida(String s) {
-        //En esta función buscamos cuál es el carácter con mayor frecuencia en el mensaje que nos han pasado.
 
         //Creamos un array, donde cada elemento representa una letra del abecedario (de manera ordenada).
         int[] abc = new int[26];
@@ -105,7 +124,9 @@ public class Caesar {
         return sacar_repetida(abc);
     }
 
+    //En esta función calcularemos el delta corresondiente a partir de la letra más frecuente en el mensaje.
     static int calcular_delta_magic(int num_provisional) {
+
         //Guardamos delta valor la resta de la posición de la letra del mensaje con mayor frecuencia menos la posición de la letra 'E' en la tabla ASCII
         int delta = num_provisional - 'E';
 
@@ -116,8 +137,8 @@ public class Caesar {
         return delta;
     }
 
+    //Calcularemos cuál es la letra más frecuente en el string a partir del array abc. (Donde tenemos almacenados la frecuencia de cada letra)
     static int sacar_repetida(int[] abc) {
-        //Calcularemos cuál es la letra más frecuente en el string a partir del array abc. (Donde tenemos almacenados la frecuencia de cada letra)
 
         //Guardamos en posicion_matriz la posición del primer elemento del array y en valor_provisional el valor del primer elemento del array.
         int posicion_matriz = 0, valor_provisional = abc[0];

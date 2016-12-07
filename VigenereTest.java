@@ -26,6 +26,10 @@ public class VigenereTest {
         assertEquals("LA INFWZINJ LOTQA MS FLRKSWUBI", Vigenere.encode("El ministre també ha reconegut", "govern"));
         assertEquals("(PP QXUWF RFD F BKLCKAX) J ZXO EQ USWLVBD (FUWGEJA FMK TRSQSFFMU)", Vigenere.encode("(no estem per a assajos) i hem de prestar (atenció als aprenents)", "balears"));
         assertEquals("MEXN KXXX", Vigenere.encode("AVUI PLOU", "LICEU"));
+
+        //tests propios
+        assertEquals("", Vigenere.encode("", "hola"));
+        assertEquals("Hola", Vigenere.encode("Hola", ""));
     }
 
     @Test
@@ -36,6 +40,10 @@ public class VigenereTest {
         assertEquals("AVUI FA BON DIA", Vigenere.decode("NWGU US EPA EUM", "MALLORCA"));
         assertEquals("(NO ESTEM PER A ASSAJOS) I HEM DE PRESTAR (ATENCIO ALS APRENENTS)", Vigenere.decode("(PP QXUWF RFD F BKLCKAX) J ZXO EQ USWLVBD (FUWGEJA FMK TRSQSFFMU)", "balears"));
         assertEquals("EL MINISTRE TAMBE HA RECONEGUT", Vigenere.decode("LA INFWZINJ LOTQA MS FLRKSWUBI", "govern"));
+
+        //tests propios
+        assertEquals("", Vigenere.encode("", "hola"));
+        assertEquals("Hola", Vigenere.encode("Hola", ""));
     }
 
 }

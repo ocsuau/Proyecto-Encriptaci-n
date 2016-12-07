@@ -20,8 +20,8 @@ public class CaesarTest {
         assertEquals("Z'OAWQ VO RS GSF QCA SZG RWBSFG, EIS OPOBG RS BSQSGGWHOF-ZC, GS GOD SZ JOZCF EIS HÉ.", Caesar.cypher("L'amic ha de ser com els diners, que abans de necessitar-lo, se sap el valor que té.", 66));
 
         //tests propios
-
-        assertEquals("HOLA, CÓMO VA?", Caesar.cypher("Hola, cómo va?", 0));
+        assertEquals("Hola, cómo va?", Caesar.cypher("Hola, cómo va?", 0));
+        assertEquals("", Caesar.cypher("", 4));
     }
 
     @Test
@@ -35,8 +35,9 @@ public class CaesarTest {
         assertEquals("L'AMIC HA DE SER COM ELS DINERS, QUE ABANS DE NECESSITAR-LO, SE SAP EL VALOR QUE TÉ.",
                 Caesar.decypher("Z'OAWQ VO RS GSF QCA SZG RWBSFG, EIS OPOBG RS BSQSGGWHOF-ZC, GS GOD SZ JOZCF EIS HÉ.", 66));
 
-
-        assertEquals("HOLA, CÓMO VA?", Caesar.decypher("hola, cómo va?", 0));
+        //tests propios
+        assertEquals("Hola, cómo va?", Caesar.decypher("Hola, cómo va?", 0));
+        assertEquals("", Caesar.decypher("", 283));
     }
 
     @Test
@@ -49,6 +50,9 @@ public class CaesarTest {
 
         assertEquals("LA MAJOR PART DE LA RECERCA ACTUAL SE CENTRA EN LA COMPRENSIÓ DE LA CODIFICACIÓ I PROCESSAMENT DE LA INFORMACIÓ EN ELS SISTEMES SENSORIAL I CEREBRAL, QUANTIFICANT COM AQUEST PROCÉS ES VEU ALTERAT EN UN ESTAT PATOLÒGIC, I COM ES POT MANIPULAR A TRAVÉS DE LA INTERACCIÓ AMB DISPOSITIUS ARTIFICIALS INCLOENT LES INTERFÍCIES CERVELL-COMPUTADOR I NEUROPRÒTESIS.",
                 Caesar.magic("KZ LZINQ OZQS CD KZ QDBDQBZ ZBSTZK RD BDMSQZ DM KZ BNLOQDMRHÓ CD KZ BNCHEHBZBHÓ H OQNBDRRZLDMS CD KZ HMENQLZBHÓ DM DKR RHRSDLDR RDMRNQHZK H BDQDAQZK, PTZMSHEHBZMS BNL ZPTDRS OQNBÉR DR UDT ZKSDQZS DM TM DRSZS OZSNKÒFHB, H BNL DR ONS LZMHOTKZQ Z SQZUÉR CD KZ HMSDQZBBHÓ ZLA CHRONRHSHTR ZQSHEHBHZKR HMBKNDMS KDR HMSDQEÍBHDR BDQUDKK-BNLOTSZCNQ H MDTQNOQÒSDRHR."));
+
+        //tests propios
+        assertEquals("", Caesar.magic(""));
     }
 
 }

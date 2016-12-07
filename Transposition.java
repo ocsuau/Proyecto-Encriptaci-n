@@ -1,6 +1,11 @@
 
 public class Transposition {
     static String cypher(String s, int dim) {
+
+        //Comprobamos que los valores que nos pasan cumplen unos requisitos mínimos. (el número de columnas sea mayor que 0, el mensaje tenga algún carácter...)
+        if (comprobar_integridad_mensaje_filas(s, dim)) {
+            return s;
+        }
         //Creamos matriz bidimensional donde meteremos el mensaje. El número de columnas nos lo dicen, y el de filas será igual a (redondear hacia arriba(length del mensaje dividido entre número de columnas))
         char[][] matriz = new char[(int) Math.ceil(s.length() / (double) dim)][dim];
 
@@ -15,6 +20,11 @@ public class Transposition {
     }
 
     static String decypher(String s, int dim) {
+
+        //Comprobamos que los valores que nos pasan cumplen unos requisitos mínimos. (el número de columnas sea mayor que 0, el mensaje tenga algún carácter...)
+        if (comprobar_integridad_mensaje_filas(s, dim)) {
+            return s;
+        }
         //Creamos matriz bidimensional donde meteremos el mensaje. El número de columnas nos lo dicen, y el de filas será igual a (redondear hacia arriba(length del mensaje dividido entre número de columnas))
         char[][] matriz = new char[(int) Math.ceil(s.length() / (double) dim)][dim];
 
@@ -29,6 +39,11 @@ public class Transposition {
     }
 
     static String cypher(String s, String key) {
+
+        //Comprobamos que los valores que nos pasan cumplen unos requisitos mínimos. (el número de columnas sea mayor que 0, el mensaje tenga algún carácter...)
+        if (comprobar_integridad_mensaje_filas(s, key.length())) {
+            return s;
+        }
         //Creamos matriz bidimensional donde meteremos el mensaje. El número de columnas es la longitud de key, y el de filas será igual a (redondear hacia arriba(length del mensaje dividido entre length de key))
         char[][] matriz = new char[(int) Math.ceil(s.length() / (double) key.length())][key.length()];
 
@@ -49,6 +64,11 @@ public class Transposition {
     }
 
     static String decypher(String s, String key) {
+
+        //Comprobamos que los valores que nos pasan cumplen unos requisitos mínimos. (el número de columnas sea mayor que 0, el mensaje tenga algún carácter...)
+        if (comprobar_integridad_mensaje_filas(s, key.length())) {
+            return s;
+        }
         //Creamos matriz bidimensional donde meteremos el mensaje. El número de columnas es la longitud de key, y el de filas será igual a (redondear hacia arriba(length del mensaje dividido entre length de key))
         char[][] matriz = new char[(int) Math.ceil(s.length() / (double) key.length())][key.length()];
 
@@ -71,10 +91,19 @@ public class Transposition {
         return convertir_mensaje(matriz, false, matriz.length, matriz[0].length);
     }
 
+    //En esta función comprobamos que los valores que nos pasan cumplen unos requisitos mínimos.
+    static boolean comprobar_integridad_mensaje_filas(String s, int dim) {
+        boolean retorno = false;
+        if (s.length() == 0 || dim <= 0 || (dim > s.length())) {
+            retorno = true;
+        }
+        return retorno;
+    }
+
+    //En está función ponemos en los últimos residuo elementos de la última fila de la matriz el carácter comodín '~', donde nos ayudará a la hora de desencriptar para no introducir los datos erróneamente
     static void crear_plantilla(char[][] matriz, int residuo) {
-        //En está función ponemos en los últimos residuo elementos de la última fila de la matriz el carácter comodín '~', donde nos ayudará a la hora de desencriptar para no introducir los datos erróneamente
         for (int j = matriz[0].length - residuo; j < matriz[0].length; j++) {
-            matriz[matriz.length - 1][j] = '~';
+            matriz[matriz.length - 1][j] = 1;
         }
     }
 
@@ -84,10 +113,10 @@ public class Transposition {
         //Asignaremos los valores de la forma correcta según el valor de b (Según de si queremos desencriptar o encriptar). En los elementos donde no encuentre el carácter '~'(comodín que hemos asignado en la función crear_plantilla para su correcta desencriptación) meterá un carácter del mensaje.
         for (int i = 0, cont = 0; i < longitud1; i++) {
             for (int j = 0; j < longitud2; j++) {
-                if ((b == true) && (matriz[i][j] != '~')) {
+                if ((b == true) && (matriz[i][j] != 1)) {
                         matriz[i][j] = s.charAt(cont);
                         cont++;
-                } else if ((b == false) && (matriz[j][i] != '~')) {
+                } else if ((b == false) && (matriz[j][i] != 1)) {
                         matriz[j][i] = s.charAt(cont);
                         cont++;
                 }
@@ -102,9 +131,9 @@ public class Transposition {
 
         for (int i = 0; i < longitud1; i++) {
             for (int j = 0; j < longitud2; j++) {
-                if ((b == true) && (matriz[j][i] != '~')) {
+                if ((b == true) && (matriz[j][i] != 1)) {
                     sb.append(matriz[j][i]);
-                } else if ((b == false) && (matriz[i][j] != '~')) {
+                } else if ((b == false) && (matriz[i][j] != 1)) {
                     sb.append(matriz[i][j]);
                 }
             }
@@ -112,9 +141,8 @@ public class Transposition {
         return sb.toString();
     }
 
-
+    //En esta función ordenamos sustituimos los valores de una columna a otra según los parámetros que nos pasan. (para su desencriptación o encriptación)
     static void mover_valores_mensaje(char[][] matriz, int i, int j) {
-        //En esta función ordenamos sustituimos los valores de una columna a otra según los parámetros que nos pasan. (para su desencriptación o encriptación)
 
         //En el bucle sólo recorremos las filas, sustituyendo las posiciones de las columnas según los parámetros de entrada.
         for (int k = 0, contenedor_provisional; k < matriz.length; k++) {
@@ -124,8 +152,8 @@ public class Transposition {
         }
     }
 
+    //En esta función ordenamos la clave que nos han dado para realizar los mismos cambios de posición de columnas a la matriz.
     static void ordenar_clave(char[][] matriz, char[] clave) {
-        //En esta función ordenamos la clave que nos han dado para realizar los mismos cambios de posición de columnas a la matriz.
 
         //Realizamos un bubble sort de una pasada para ordenar la clave.
         for (int i = 0, valor; i < clave.length; i++) {
@@ -143,8 +171,8 @@ public class Transposition {
         }
     }
 
+    //En esta función recuperamos la clave a partir de la clave original que nos han dado para realizar los mismos cambios de posición de columnas a la matriz.
     static void recuperar_clave(char[][] resultado, String key, char[] clave) {
-        //En esta función recuperamos la clave a partir de la clave original que nos han dado para realizar los mismos cambios de posición de columnas a la matriz.
 
         //Ordenamos la clave realizando un bubble sort de una pasada, comparando la equivalencia de los carácteres.
         for (int i = 0, contenedor_provisional; i < clave.length; i++) {
