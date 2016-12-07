@@ -1,4 +1,3 @@
-import java.util.Arrays;
 
 public class Transposition {
     static String cypher(String s, int dim) {
@@ -148,8 +147,8 @@ public class Transposition {
         //En esta función recuperamos la clave a partir de la clave original que nos han dado para realizar los mismos cambios de posición de columnas a la matriz.
 
         //Ordenamos la clave realizando un bubble sort de una pasada, comparando la equivalencia de los carácteres.
-        for (int i = 0, contenedor_provisional; i < key.length(); i++) {
-            for (int j = i + 1; j < key.length(); j++) {
+        for (int i = 0, contenedor_provisional; i < clave.length; i++) {
+            for (int j = i + 1; j < clave.length; j++) {
                 if (clave[j] == key.charAt(i)) {
                     contenedor_provisional = clave[i];
                     clave[i] = clave[j];

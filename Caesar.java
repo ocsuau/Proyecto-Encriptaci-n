@@ -11,9 +11,7 @@ public class Caesar {
 
     static String convertir_mensaje(String s, int delta, boolean b) {
         //Si delta es mayor que el número de letras del abecedario, calculamos su residuo para obtener el delta correcto.
-        if (delta > 26) {
-            delta = delta % 26;
-        }
+        delta = comprobar_delta(delta);
         //Convertimos letras en mayúsculas.
         s = s.toUpperCase();
 
@@ -74,6 +72,16 @@ public class Caesar {
 
         //Retornamos el mensaje desencriptado llamando a Caesar.decypher.
         return Caesar.decypher(s, delta);
+    }
+
+    static int comprobar_delta(int delta) {
+        if (delta > 26 || delta < -26) {
+            delta = delta % 26;
+        }
+        if (delta < 0) {
+            delta += 26;
+        }
+        return delta;
     }
 
     static int encontrar_repetida(String s) {
