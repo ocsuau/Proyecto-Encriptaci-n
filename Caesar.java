@@ -20,7 +20,8 @@ public class Caesar {
             delta = delta % 26;
         }
 
-        //Si delta es un valor negativo, lo pasaremos a positivo y cambiaremos el valor de b para que encripte en vez de desencriptar y viceversa. (Al haber números negativos, encriptar/desencriptar es equivalente a la acción contraria con el mismo número en positivo)
+        //Si delta es un valor negativo, lo pasaremos a positivo y cambiaremos el valor de b para que encripte en vez de desencriptar y viceversa.
+        // (Al haber números negativos, encriptar/desencriptar es equivalente a la acción contraria con el mismo número en positivo)
         if (delta < 0) {
             delta *= -1;
             if (b) {
@@ -44,12 +45,11 @@ public class Caesar {
 
             //Comprobamos que el carácter en cuestión es una letra mayúscula sin acentos.
             if (((int) s.charAt(i) >= 'A') && ((int) s.charAt(i) <= 'Z')) {
+
                 //Almacenamos la posición en la tabla ASCII del carácter en cuestión.
                 pos_caracter = (int) s.charAt(i);
 
-                //Si b es true, debe codificar
                 if (b) {
-                    //A pos_caracter le incrementamos delta.
                     pos_caracter += delta;
 
                     //Si pos caracter es mayor que la posición de 'Z' en la tabla ASCII, le restamos 26
@@ -57,9 +57,6 @@ public class Caesar {
                         pos_caracter -= 26;
                     }
                 } else {
-                    //Si hemos entrado aquí, es porque b es false y debemos decodificar el mensaje.
-
-                    //A pos_caracter le restamos delta.
                     pos_caracter -= delta;
 
                     //Si pos caracter es mayor que la posición de 'Z' en la tabla ASCII, le restamos 26.

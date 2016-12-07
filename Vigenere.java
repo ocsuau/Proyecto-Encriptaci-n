@@ -33,7 +33,6 @@ public class Vigenere {
         //Creamos SB resultado para meter el mesaje resultado.
         StringBuilder resultado = new StringBuilder();
 
-        //Iniciamos bucle recorriendo el mensaje.
         for (int i = 0; i < s.length(); i++) {
             //Comprobamos que el carácter en cuestión sea una letra.
             if ((s.charAt(i) >= 'A') && (s.charAt(i) <= 'Z')) {

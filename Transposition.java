@@ -100,7 +100,7 @@ public class Transposition {
         return retorno;
     }
 
-    //En está función ponemos en los últimos residuo elementos de la última fila de la matriz el carácter comodín '~', donde nos ayudará a la hora de desencriptar para no introducir los datos erróneamente
+    //En está función ponemos en los últimos residuo elementos de la última fila de la matriz el carácter de la tabla ASCII en la posición 1, donde nos ayudará a la hora de desencriptar para no introducir los datos erróneamente
     static void crear_plantilla(char[][] matriz, int residuo) {
         for (int j = matriz[0].length - residuo; j < matriz[0].length; j++) {
             matriz[matriz.length - 1][j] = 1;
@@ -110,7 +110,7 @@ public class Transposition {
     static void asignar_valores(String s, char[][] matriz, boolean b, int longitud1, int longitud2) {
         //En esta función asignamos los valores a la matriz. Dependiendo de si queremos encriptar o desencriptar, recorreremos la matriz por filas o por columnas. (Por eso los input longitud1 y longitud2)
 
-        //Asignaremos los valores de la forma correcta según el valor de b (Según de si queremos desencriptar o encriptar). En los elementos donde no encuentre el carácter '~'(comodín que hemos asignado en la función crear_plantilla para su correcta desencriptación) meterá un carácter del mensaje.
+        //Asignaremos los valores de la forma correcta según el valor de b (Según de si queremos desencriptar o encriptar). En los elementos donde no encuentre el carácter de la tabla ASCII en la posición 1, meterá un carácter del mensaje.
         for (int i = 0, cont = 0; i < longitud1; i++) {
             for (int j = 0; j < longitud2; j++) {
                 if ((b == true) && (matriz[i][j] != 1)) {
@@ -125,7 +125,7 @@ public class Transposition {
     }
 
     static String convertir_mensaje(char[][] matriz, boolean b, int longitud1, int longitud2) {
-        //En esta función recorremos la matriz (según el valor de b, por filas o por columnas) y, siempre que el valor del elemento sea distinto a '~', meterá el valor del elemento en sb.
+        //En esta función recorremos la matriz (según el valor de b, por filas o por columnas) y, siempre que el valor del elemento sea distinto al carácter de la tabla ASCII en la posición 1, meterá el valor del elemento en sb.
 
         StringBuilder sb = new StringBuilder();
 
@@ -141,7 +141,7 @@ public class Transposition {
         return sb.toString();
     }
 
-    //En esta función ordenamos sustituimos los valores de una columna a otra según los parámetros que nos pasan. (para su desencriptación o encriptación)
+    //En esta función sustituimos los valores de una columna a otra según los parámetros que nos pasan. (para su desencriptación o encriptación)
     static void mover_valores_mensaje(char[][] matriz, int i, int j) {
 
         //En el bucle sólo recorremos las filas, sustituyendo las posiciones de las columnas según los parámetros de entrada.
