@@ -35,6 +35,8 @@ public class CaesarTest {
         assertEquals("L'AMIC HA DE SER COM ELS DINERS, QUE ABANS DE NECESSITAR-LO, SE SAP EL VALOR QUE TÉ.",
                 Caesar.decypher("Z'OAWQ VO RS GSF QCA SZG RWBSFG, EIS OPOBG RS BSQSGGWHOF-ZC, GS GOD SZ JOZCF EIS HÉ.", 66));
 
+
+        assertEquals("HOLA, CÓMO VA?", Caesar.decypher("hola, cómo va?", 0));
     }
 
     @Test

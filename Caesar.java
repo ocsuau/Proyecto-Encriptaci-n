@@ -11,7 +11,20 @@ public class Caesar {
 
     static String convertir_mensaje(String s, int delta, boolean b) {
         //Si delta es mayor que el número de letras del abecedario, calculamos su residuo para obtener el delta correcto.
-        delta = comprobar_delta(delta);
+        if (delta > 26 || delta < -26) {
+            delta = delta % 26;
+        }
+
+        //Si delta es un valor negativo, lo pasaremos a positivo y cambiaremos el valor de b para que encripte en vez de desencriptar y viceversa. (Al haber números negativos, encriptar/desencriptar es equivalente a la acción contraria con el mismo número en positivo)
+        if (delta < 0) {
+            delta *= -1;
+            if (b) {
+                b = false;
+            } else {
+                b = true;
+            }
+        }
+
         //Convertimos letras en mayúsculas.
         s = s.toUpperCase();
 
@@ -72,16 +85,6 @@ public class Caesar {
 
         //Retornamos el mensaje desencriptado llamando a Caesar.decypher.
         return Caesar.decypher(s, delta);
-    }
-
-    static int comprobar_delta(int delta) {
-        if (delta > 26 || delta < -26) {
-            delta = delta % 26;
-        }
-        if (delta < 0) {
-            delta += 26;
-        }
-        return delta;
     }
 
     static int encontrar_repetida(String s) {
