@@ -124,8 +124,8 @@ public class Transposition {
         }
     }
 
+    //En esta función recorremos la matriz (según el valor de b, por filas o por columnas) y, siempre que el valor del elemento sea distinto al carácter de la tabla ASCII en la posición 1, meterá el valor del elemento en sb.
     static String convertir_mensaje(char[][] matriz, boolean b, int longitud1, int longitud2) {
-        //En esta función recorremos la matriz (según el valor de b, por filas o por columnas) y, siempre que el valor del elemento sea distinto al carácter de la tabla ASCII en la posición 1, meterá el valor del elemento en sb.
 
         StringBuilder sb = new StringBuilder();
 
@@ -172,7 +172,7 @@ public class Transposition {
     }
 
     //En esta función recuperamos la clave a partir de la clave original que nos han dado para realizar los mismos cambios de posición de columnas a la matriz.
-    static void recuperar_clave(char[][] resultado, String key, char[] clave) {
+    static void recuperar_clave(char[][] matriz, String key, char[] clave) {
 
         //Ordenamos la clave realizando un bubble sort de una pasada, comparando la equivalencia de los carácteres.
         for (int i = 0, contenedor_provisional; i < clave.length; i++) {
@@ -184,7 +184,7 @@ public class Transposition {
 
                     //Llamamos a la función mover_valores_mensaje para realizar los mismos cambios de posición de las columnas que hemos hecho con la matriz clave.
                     //Le pasamos las variables que contienen las columnas que debe intercambiar.
-                    mover_valores_mensaje(resultado, i, j);
+                    mover_valores_mensaje(matriz, i, j);
                     break;
                 }
             }

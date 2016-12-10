@@ -22,14 +22,14 @@ public class Caesar {
 
         //Si delta es un valor negativo, lo pasaremos a positivo y cambiaremos el valor de b para que encripte en vez de desencriptar y viceversa.
         // (Al haber números negativos, encriptar/desencriptar es equivalente a la acción contraria con el mismo número en positivo)
-        if (delta < 0) {
+        if (delta < 0 && b == true) {
             delta *= -1;
-            if (b) {
-                b = false;
-            } else {
-                b = true;
-            }
+            b = false;
+        } else if (delta < 0 && b == false) {
+            delta *= -1;
+            b = true;
         }
+
 
         //Convertimos letras en mayúsculas.
         s = s.toUpperCase();
